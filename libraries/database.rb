@@ -50,7 +50,10 @@ module ::Openstack # rubocop:disable Documentation
         end
       when 'mysql'
         # we have to install the 'mysql' gem, otherwise the provider won't work
-        include_recipe 'database::mysql'
+        mysql2_chef_gem 'default' do
+          client_version node['mysql']['version'] if node['mysql']
+          action :install
+        end
         db_prov = ::Chef::Provider::Database::Mysql
         user_prov = ::Chef::Provider::Database::MysqlUser
         super_user = 'root'

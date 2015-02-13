@@ -13,9 +13,9 @@ describe 'openstack-common::default' do
 
     describe '#db_create_with_user' do
       before do
-        allow(subject).to receive(:include_recipe)
-          .with('database::mysql')
-          .and_return('')
+        it 'installs MySQL2 chef-gem' do
+          expect(chef_run).to install_chef_gem('mysql2_chef_gem')
+        end
       end
 
       it 'returns nil when no such service was found' do
